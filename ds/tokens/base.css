@@ -1,0 +1,11 @@
+/* Minimal element defaults so specimen cards and kits share a baseline. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg-page);color:var(--text-body);font:var(--type-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,p{margin:0}
+h1{font:var(--type-h1);letter-spacing:var(--ls-heading);color:var(--text-display)}
+h2{font:var(--type-h2);letter-spacing:var(--ls-heading);color:var(--text-display)}
+h3{font:var(--type-h3);letter-spacing:var(--ls-heading);color:var(--text-display)}
+h4{font:var(--type-h4);color:var(--text-display)}
+a{color:var(--white);text-decoration:none;transition:var(--transition-control)}
+a:hover{color:var(--ink-200)}
+::selection{background:var(--white);color:var(--ink-1000)}

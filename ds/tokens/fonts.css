@@ -1,0 +1,5 @@
+/* MySpace webfonts — SUBSTITUTED from Google Fonts.
+   The provided logo lockup uses a humanist sans (Optima/Candara-like); the
+   landing reference uses a geometric grotesk. No font binaries were supplied,
+   so we ship the nearest Google Fonts matches. See readme.md > Typography. */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");

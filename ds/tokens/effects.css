@@ -1,0 +1,33 @@
+:root{
+  /* Corner radii — pill for controls, soft-large for panels */
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:20px;
+  --radius-xl:28px;
+  --radius-pill:999px;
+
+  --border-width:1px; /* @kind other */
+  --border-width-strong:1.5px; /* @kind other */
+
+  /* Shadows: black-on-black, so elevation is mostly light hairlines + deep drops */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.6);
+  --shadow-md:0 8px 24px -8px rgba(0,0,0,.7);
+  --shadow-lg:0 24px 60px -16px rgba(0,0,0,.8);
+  --shadow-panel:0 40px 120px -32px rgba(0,0,0,.9);
+  --inner-top-light:inset 0 1px 0 rgba(255,255,255,.06); /* @kind shadow */
+  --inner-hairline:inset 0 0 0 1px rgba(255,255,255,.08); /* @kind shadow */
+  --glow-soft:0 0 0 1px rgba(255,255,255,.14), 0 0 40px -8px rgba(255,255,255,.12); /* @kind shadow */
+  --focus-ring:0 0 0 1px var(--ink-1000), 0 0 0 3px rgba(255,255,255,.55); /* @kind shadow */
+
+  /* Blur / glass — used only for overlaid chrome on imagery */
+  --blur-sm:blur(6px); /* @kind other */
+  --blur-md:blur(14px); /* @kind other */
+  --blur-lg:blur(28px); /* @kind other */
+  --glass-bg:rgba(16,16,18,.62); /* @kind other */
+  --scrim-modal:rgba(5,5,5,.72); /* @kind other */
+
+  /* Film grain overlay opacity for photographic sections */
+  --grain-opacity:.05; /* @kind other */
+}

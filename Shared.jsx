@@ -1,7 +1,7 @@
 const { NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo } = window.MySpaceDesignSystem_5ece30;
 
-const ASSETS = "ds";
-const HALL = "hall-projection.png";
+const ASSETS = "assets/ds";
+const HALL = "assets/hall-projection.png";
 
 const NAV = [
   { id: "home", label: "Головна" },
@@ -11,10 +11,56 @@ const NAV = [
   { id: "contact", label: "Контакти" }
 ];
 
+const TG_URL = "https://t.me/myspacerv";
+const IG_URL = "https://instagram.com/myspacerv";
+
+function TelegramIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21.5 4.3 2.9 11.2c-.7.3-.7 1.2 0 1.4l4.7 1.5 1.8 5.3c.2.6 1 .8 1.4.3l2.5-2.6 4.6 3.4c.5.4 1.3.1 1.4-.6l2.6-14.4c.1-.7-.6-1.3-1.4-1z" />
+      <path d="m7.6 14.1 10.3-7.2-7.7 8.2" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function SocialIcons({ size = 18, gap = "var(--space-4)" }) {
+  const a = { display: "flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: "var(--radius-sm)", color: "var(--text-body)", transition: "var(--transition-control)" };
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap }}>
+      <a href={TG_URL} target="_blank" rel="noreferrer" aria-label="Telegram" title="Telegram @myspacerv" style={a}><TelegramIcon size={size} /></a>
+      <a href={IG_URL} target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram @myspacerv" style={a}><InstagramIcon size={size} /></a>
+    </div>
+  );
+}
+
 function Header({ route, go, scrolled, onCta }) {
+  const link = (on) => ({ font: "var(--type-body-sm)", fontFamily: "var(--font-display)", fontSize: "14px", color: on ? "var(--white)" : "var(--text-body)", textDecoration: "none", paddingBottom: "2px", borderBottom: "1px solid " + (on ? "var(--alpha-white-40)" : "transparent"), transition: "var(--transition-control)", whiteSpace: "nowrap" });
   return (
     <div style={{ position: "sticky", top: 0, zIndex: 30 }}>
-      <NavBar items={NAV} active={route} onNavigate={go} assetBase={ASSETS} transparent={!scrolled} cta="Забронювати час" onCta={onCta} />
+      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-8)", padding: "var(--space-6) var(--gutter-page)", background: scrolled ? "var(--glass-bg)" : "transparent", backdropFilter: scrolled ? "var(--blur-md)" : "none", borderBottom: "1px solid " + (scrolled ? "var(--border-hairline)" : "transparent") }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); go("home"); }} style={{ display: "flex", alignItems: "center", flex: "0 0 auto" }}>
+          <Logo variant="wordmark" height={20} assetBase={ASSETS} />
+        </a>
+        <nav style={{ display: "flex", alignItems: "center", gap: "var(--space-8)", flexWrap: "wrap", justifyContent: "center" }}>
+          {NAV.map((n) => (
+            <a key={n.id} href="#" onClick={(e) => { e.preventDefault(); go(n.id); }} style={link(route === n.id)}>{n.label}</a>
+          ))}
+        </nav>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)", flex: "0 0 auto" }}>
+          <SocialIcons gap="var(--space-1)" />
+          <Button variant="secondary" size="md" onClick={onCta}>Забронювати час</Button>
+        </div>
+      </header>
     </div>
   );
 }
@@ -63,8 +109,12 @@ function SiteFooter({ go }) {
       <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-10)", textAlign: "center" }}>
         <img src={ASSETS + "/logo-lockup-dark.png"} alt="MySpace" style={{ height: 108, width: "auto" }} />
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "var(--space-10)" }}>
-          <a href="https://instagram.com/myspacerv" target="_blank" rel="noreferrer" style={row}>
-            <i data-lucide="instagram" style={{ width: 18, height: 18 }}></i>
+          <a href={IG_URL} target="_blank" rel="noreferrer" style={row}>
+            <InstagramIcon />
+            <span>myspacerv</span>
+          </a>
+          <a href={TG_URL} target="_blank" rel="noreferrer" style={row}>
+            <TelegramIcon />
             <span>myspacerv</span>
           </a>
           <a href="tel:+380992889872" style={row}>
@@ -106,7 +156,7 @@ function ScrollVideo() {
     const imgs = new Array(N);
     for (let i = 0; i < N; i++) {
       const im = new Image();
-      im.src = "hall-frames/f" + String(i).padStart(2, "0") + ".jpg";
+      im.src = "assets/hall-frames/f" + String(i).padStart(2, "0") + ".jpg";
       im.onload = () => { if (alive && ++loaded === N) { setReady(true); } };
       imgs[i] = im;
     }
@@ -162,7 +212,7 @@ function ScrollVideo() {
   return (
     <>
       <div style={{ position: "fixed", inset: 0, zIndex: 0, background: "var(--ink-1000)", pointerEvents: "none" }}>
-        <img src="hall-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.45) contrast(1.05)" }} />
+        <img src="assets/hall-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.45) contrast(1.05)" }} />
         <canvas ref={canvas} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", filter: "saturate(.45) contrast(1.05)", opacity: shown ? 1 : 0, transition: "opacity 420ms var(--ease-out-soft)" }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--ink-1000)", opacity: veil, transition: "opacity 160ms linear" }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--wash-protect-bottom)" }} />
@@ -180,4 +230,4 @@ function ScrollVideo() {
   );
 }
 
-Object.assign(window, { NAV, ASSETS, HALL, Header, Section, Label, PosterSlot, FilmCard, SiteFooter, ScrollVideo, NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo });
+Object.assign(window, { NAV, ASSETS, HALL, TG_URL, IG_URL, TelegramIcon, InstagramIcon, SocialIcons, Header, Section, Label, PosterSlot, FilmCard, SiteFooter, ScrollVideo, NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo });
