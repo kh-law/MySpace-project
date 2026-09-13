@@ -9,8 +9,8 @@ const POPCORN_SIZES = [{ id: "S", vol: "0,75 л", price: 75 }, { id: "M", vol: "
 const DRINKS = [{ id: "pepsi", label: "Pepsi 0,33 л", price: 50 }, { id: "cola", label: "Coca-Cola 0,33 л", price: 50 }];
 
 // Заповни після налаштування — див. integrations.md
-const APPS_SCRIPT_URL = ""; // Web app URL з Google Apps Script (Sheets + Telegram)
-const LIQPAY_URL = "";      // платіжне посилання LiqPay
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxt2PrIexzQ3e5B5fZ6yR2NDzrQzxg0Z8Kq23LMdQC2zDgP5Rmx-Dd18xq_Y_wYINSgsA/exec"; // Web app URL з Google Apps Script (Sheets + Telegram)
+const LIQPAY_URL = "https://next.privat24.ua/payments/form/%7B%22token%22%3A%22ddd0adc3-c61c-4f51-8c0e-767664ab1963%22%7D";      // платіжне посилання LiqPay
 
 const TODAY = new Date();
 const MONTHS = [
