@@ -1,0 +1,34 @@
+:root{
+  --space-0:0px;
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+  --space-32:128px;
+  --space-40:160px;
+
+  /* Layout */
+  --container-max:1200px; /* @kind spacing */
+  --container-narrow:720px; /* @kind spacing */
+  --gutter-page:32px; /* @kind spacing */
+  --gutter-page-sm:20px; /* @kind spacing */
+  --section-y:var(--space-32); /* @kind spacing */
+  --section-y-sm:var(--space-20); /* @kind spacing */
+  --grid-gap:24px; /* @kind spacing */
+
+  /* Control geometry — measured off the reference "Get a quote" button */
+  --control-h-sm:34px;
+  --control-h-md:42px;
+  --control-h-lg:52px;
+  --control-px-sm:14px;
+  --control-px-md:20px;
+  --control-px-lg:28px;
+}

@@ -1,0 +1,68 @@
+:root{
+  /* Base neutrals — the brand lives on near-black, never pure #000 for surfaces */
+  --black:#000000;
+  --ink-1000:#050505;
+  --ink-950:#0A0A0B;
+  --ink-900:#101012;
+  --ink-850:#16161A;
+  --ink-800:#1D1D21;
+  --ink-700:#26262B;
+  --ink-600:#33333A;
+  --ink-500:#4A4A53;
+  --ink-400:#6E6E78;
+  --ink-300:#9A9AA3;
+  --ink-200:#C4C4CB;
+  --ink-100:#E4E4E8;
+  --ink-050:#F4F4F6;
+  --white:#FFFFFF;
+
+  /* Chrome — the silver of the imagery, used for hairlines and metal accents */
+  --chrome-bright:#F2F3F5;
+  --chrome:#C9CBD1;
+  --chrome-dim:#8D9098;
+
+  /* Semantic (kept desaturated so nothing outshines the monochrome) */
+  --signal-positive:#7FD1A6;
+  --signal-caution:#E0C07A;
+  --signal-critical:#E38A80;
+  --signal-info:#9FB6D6;
+
+  /* Alpha scales for hairlines, hovers, veils */
+  --alpha-white-04:rgba(255,255,255,.04);
+  --alpha-white-08:rgba(255,255,255,.08);
+  --alpha-white-12:rgba(255,255,255,.12);
+  --alpha-white-20:rgba(255,255,255,.20);
+  --alpha-white-40:rgba(255,255,255,.40);
+  --alpha-black-40:rgba(5,5,5,.40);
+  --alpha-black-70:rgba(5,5,5,.70);
+
+  /* ---- Semantic aliases: this is what components consume ---- */
+  --bg-page:var(--ink-1000);
+  --bg-canvas:var(--ink-950);
+  --surface-card:var(--ink-900);
+  --surface-raised:var(--ink-850);
+  --surface-inset:var(--ink-1000);
+  --surface-invert:var(--white);
+
+  --text-display:var(--white);
+  --text-body:var(--ink-200);
+  --text-muted:var(--ink-400);
+  --text-faint:var(--ink-500);
+  --text-on-invert:var(--ink-1000);
+
+  --border-hairline:var(--alpha-white-08);
+  --border-default:var(--alpha-white-12);
+  --border-strong:var(--alpha-white-20);
+  --border-focus:var(--white);
+
+  --control-bg:transparent;
+  --control-bg-hover:var(--alpha-white-08);
+  --control-bg-active:var(--alpha-white-12);
+  --control-fg:var(--white);
+
+  /* Signature background washes */
+  --wash-vignette:radial-gradient(120% 90% at 50% 0%, #1A1A1E 0%, #0A0A0B 55%, #050505 100%); /* @kind color */
+  --wash-floor:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.06) 60%, rgba(255,255,255,0) 100%); /* @kind color */
+  --wash-protect-bottom:linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,.85) 100%); /* @kind color */
+  --wash-chrome:linear-gradient(160deg, #FFFFFF 0%, #C9CBD1 38%, #6E6E78 62%, #E4E4E8 100%); /* @kind color */
+}
