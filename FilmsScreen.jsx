@@ -34,9 +34,14 @@ function FilmsScreen({ go }) {
         </div>
       </div>
       <div style={{ margin: (mobile ? "var(--space-6)" : "var(--space-8)") + " 0", borderTop: "1px solid var(--border-hairline)" }} />
-      <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: "var(--grid-gap)" }}>
-        {list.map((f) => <FilmCard key={f.title} film={f} onClick={() => go("booking")} />)}
+      <div style={mobile
+        ? { display: "flex", gap: "var(--space-3)", overflowX: "auto", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", margin: "0 calc(-1 * var(--gutter-page))", padding: "0 var(--gutter-page) var(--space-3)", scrollbarWidth: "none" }
+        : { display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "var(--grid-gap)" }}>
+        {list.map((f) => mobile
+          ? <div key={f.title} style={{ flex: "0 0 64%", maxWidth: 240, scrollSnapAlign: "start" }}><FilmCard film={f} onClick={() => go("booking")} /></div>
+          : <FilmCard key={f.title} film={f} onClick={() => go("booking")} />)}
       </div>
+      {mobile ? <Label style={{ display: "block", marginTop: "var(--space-4)", color: "var(--text-faint)" }}>Гортай убік · {list.length} фільмів</Label> : null}
       {!list.length ? <p style={{ font: "var(--type-body)", color: "var(--text-muted)" }}>Нічого не знайшли — напиши нам, підберемо вручну.</p> : null}
     </Section>
   );

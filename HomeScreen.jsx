@@ -12,11 +12,13 @@ function Hero({ go }) {
   return (
     <section style={{ position: "relative", minHeight: mobile ? "88vh" : "min(100vh, 900px)", marginTop: mobile ? -108 : -84, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
       <div style={{ position: "relative", width: "100%", maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--gutter-page) var(--space-16)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: mobile ? "var(--space-4)" : "var(--space-6)" }}>
-        <span style={{ font: "var(--type-label)", fontSize: mobile ? 10 : undefined, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-body)" }}>Твій унікальний простір</span>
-        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: "clamp(56px, 13vw, 184px)", lineHeight: .92, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
+        {mobile ? null : <span style={{ font: "var(--type-label)", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-body)" }}>Твій унікальний простір</span>}
+        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: mobile ? "clamp(40px, 11vw, 52px)" : "clamp(56px, 13vw, 184px)", lineHeight: .95, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
         <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "center", flexDirection: mobile ? "column" : "row", gap: mobile ? "var(--space-5)" : "var(--space-8)", flexWrap: "wrap", marginTop: "var(--space-4)" }}>
           <Button variant="primary" size={mobile ? "md" : "lg"} onClick={() => go("booking")}>Забронювати час</Button>
-          <ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Обрати фільм</ArrowLink>
+          {mobile
+            ? <PlainLink onClick={(e) => { e.preventDefault(); go("films"); }}>Обрати фільм</PlainLink>
+            : <ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Обрати фільм</ArrowLink>}
         </div>
       </div>
     </section>
@@ -108,7 +110,7 @@ function AfishaSection({ go }) {
       <div style={{ marginTop: mobile ? "var(--space-6)" : "var(--space-10)", display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: "var(--grid-gap)" }}>
         {AFISHA.map((f) => <FilmCard key={f.title} film={f} onClick={() => go("booking")} />)}
       </div>
-      {mobile ? <div style={{ marginTop: "var(--space-6)" }}><ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Вся колекція</ArrowLink></div> : null}
+      {mobile ? <div style={{ marginTop: "var(--space-6)" }}><PlainLink onClick={(e) => { e.preventDefault(); go("films"); }}>Вся колекція</PlainLink></div> : null}
     </Section>
   );
 }

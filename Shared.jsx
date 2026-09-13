@@ -132,6 +132,12 @@ function Header({ route, go, scrolled, onCta }) {
   );
 }
 
+function PlainLink({ children, onClick }) {
+  return (
+    <a href="#" onClick={onClick} style={{ font: "var(--type-body)", fontFamily: "var(--font-display)", fontSize: 16, color: "var(--white)", textDecoration: "none", paddingBottom: 2, borderBottom: "1px solid var(--alpha-white-40)" }}>{children}</a>
+  );
+}
+
 function Section({ children, tight, style, id }) {
   const { mobile } = useBP();
   const pad = mobile ? (tight ? "var(--space-10)" : "var(--space-12)") : (tight ? "var(--space-20)" : "var(--space-32)");
@@ -175,6 +181,22 @@ function FilmCard({ film, onClick }) {
 function SiteFooter({ go }) {
   const { mobile, narrow } = useBP();
   const row = { display: "flex", alignItems: "center", gap: "var(--space-3)", font: "var(--type-body)", fontSize: mobile ? 14 : undefined, color: "var(--text-body)", textDecoration: "none" };
+  if (mobile) return (
+    <footer style={{ borderTop: "1px solid var(--border-hairline)", padding: "var(--space-10) var(--gutter-page) var(--space-16)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-7)" }}>
+        <img src={ASSETS + "/logo-lockup-dark.png"} alt="MySpace" style={{ height: 58, width: "auto", maxWidth: "100%", alignSelf: "center" }} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)" }}>
+          <a href="tel:+380992889872" style={{ ...row, fontSize: 15, color: "var(--white)" }}>+38 099 288 98 72</a>
+          <SocialIcons size={20} gap="var(--space-1)" />
+        </div>
+        <div style={{ ...row, alignItems: "flex-start", fontSize: 13, color: "var(--text-muted)", paddingTop: "var(--space-5)", borderTop: "1px solid var(--border-hairline)" }}>
+          <i data-lucide="map-pin" style={{ width: 16, height: 16, marginTop: 3, flex: "0 0 16px" }}></i>
+          <span>Київська 47, БЦ «Skyliner» · Секція С · 7-й поверх · № 704</span>
+        </div>
+        <Label style={{ color: "var(--text-faint)" }}>© 2026 MySpace</Label>
+      </div>
+    </footer>
+  );
   return (
     <footer style={{ borderTop: "1px solid var(--border-hairline)", padding: (mobile ? "var(--space-10)" : "var(--space-16)") + " var(--gutter-page) " + (mobile ? "var(--space-16)" : "var(--space-8)") }}>
       <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: mobile ? "var(--space-7)" : "var(--space-10)", textAlign: "center" }}>
@@ -290,7 +312,7 @@ function ScrollVideo() {
         <div style={{ position: "absolute", inset: 0, background: "var(--wash-protect-bottom)" }} />
       </div>
       <button type="button" onClick={toggle} disabled={!ready} aria-label={mode === "idle" ? "Подивитись зал" : "Відмотати назад"}
-        style={{ position: "fixed", right: "var(--gutter-page)", bottom: mobile ? "var(--space-6)" : "var(--space-10)", zIndex: 20, display: "flex", alignItems: "center", gap: "var(--space-3)", height: mobile ? 44 : 52, padding: mobile ? "0 var(--space-4)" : "0 var(--space-6) 0 var(--space-5)", borderRadius: "var(--radius-pill)", border: "1px solid var(--border-default)", background: "var(--glass-bg)", backdropFilter: "var(--blur-md)", color: "var(--white)", cursor: ready ? "pointer" : "default", transition: "var(--transition-control)", opacity: veil > 0.5 ? 0 : (ready ? 1 : 0.5), pointerEvents: veil > 0.5 ? "none" : "auto" }}>
+        style={{ position: "fixed", left: mobile ? "var(--gutter-page)" : "auto", right: mobile ? "auto" : "var(--gutter-page)", bottom: mobile ? "var(--space-16)" : "var(--space-10)", zIndex: 20, display: "flex", alignItems: "center", gap: "var(--space-3)", height: mobile ? 44 : 52, padding: mobile ? "0 var(--space-4)" : "0 var(--space-6) 0 var(--space-5)", borderRadius: "var(--radius-pill)", border: "1px solid var(--border-default)", background: "var(--glass-bg)", backdropFilter: "var(--blur-md)", color: "var(--white)", cursor: ready ? "pointer" : "default", transition: "var(--transition-control)", opacity: veil > 0.5 ? 0 : (ready ? 1 : 0.5), pointerEvents: veil > 0.5 ? "none" : "auto" }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           {mode === "idle"
             ? <polygon points="6 3 20 12 6 21 6 3" />
@@ -302,4 +324,4 @@ function ScrollVideo() {
   );
 }
 
-Object.assign(window, { useBP, BurgerIcon, MobileMenu, NAV, ASSETS, HALL, TG_URL, IG_URL, TelegramIcon, InstagramIcon, SocialIcons, Header, Section, Label, PosterSlot, FilmCard, SiteFooter, ScrollVideo, NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo });
+Object.assign(window, { useBP, BurgerIcon, MobileMenu, PlainLink, NAV, ASSETS, HALL, TG_URL, IG_URL, TelegramIcon, InstagramIcon, SocialIcons, Header, Section, Label, PosterSlot, FilmCard, SiteFooter, ScrollVideo, NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo });
