@@ -1,7 +1,7 @@
 const { NavBar, Button, ArrowLink, Badge, Tag, Card, SectionHeading, Stat, Input, Textarea, Select, Checkbox, Radio, Switch, Tabs, Dialog, Toast, Tooltip, IconButton, Logo } = window.MySpaceDesignSystem_5ece30;
 
-const ASSETS = "assets/ds";
-const HALL = "assets/hall-projection.png";
+const ASSETS = "ds";
+const HALL = "hall-projection.png";
 
 const NAV = [
   { id: "home", label: "Головна" },
@@ -106,7 +106,7 @@ function ScrollVideo() {
     const imgs = new Array(N);
     for (let i = 0; i < N; i++) {
       const im = new Image();
-      im.src = "assets/hall-frames/f" + String(i).padStart(2, "0") + ".jpg";
+      im.src = "hall-frames/f" + String(i).padStart(2, "0") + ".jpg";
       im.onload = () => { if (alive && ++loaded === N) { setReady(true); } };
       imgs[i] = im;
     }
@@ -162,7 +162,7 @@ function ScrollVideo() {
   return (
     <>
       <div style={{ position: "fixed", inset: 0, zIndex: 0, background: "var(--ink-1000)", pointerEvents: "none" }}>
-        <img src="assets/hall-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.45) contrast(1.05)" }} />
+        <img src="hall-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.45) contrast(1.05)" }} />
         <canvas ref={canvas} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", filter: "saturate(.45) contrast(1.05)", opacity: shown ? 1 : 0, transition: "opacity 420ms var(--ease-out-soft)" }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--ink-1000)", opacity: veil, transition: "opacity 160ms linear" }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--wash-protect-bottom)" }} />
