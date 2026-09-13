@@ -20,16 +20,7 @@ const key = (y, m, d) => y + "-" + m + "-" + d;
 
 // Псевдовипадкові, але стабільні зайняті години — заміниться реальним календарем.
 function busyHours(y, m, d) {
-  let s = (y * 37 + (m + 1) * 101 + d * 17) % 2147483647;
-  const rnd = () => (s = (s * 48271) % 2147483647) / 2147483647;
-  const out = new Set();
-  const n = 1 + Math.floor(rnd() * 4);
-  for (let i = 0; i < n; i++) {
-    const start = OPEN_FROM + Math.floor(rnd() * (OPEN_TO - OPEN_FROM - 1));
-    const len = 1 + Math.floor(rnd() * 3);
-    for (let h = start; h < Math.min(OPEN_TO, start + len); h++) out.add(h);
-  }
-  return out;
+    return new Set(); // усі години вільні; підключити реальні бронювання з Google Sheets
 }
 
 function priceFor(hours) {
