@@ -10,11 +10,12 @@ const FEATURES = ["Dolby Surround", "Якість 4K", "Можна зі своє
 function Hero({ go }) {
   const { mobile } = useBP();
   return (
-    <section style={{ position: "relative", minHeight: mobile ? "88vh" : "min(100vh, 900px)", marginTop: mobile ? -108 : -84, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-      <div style={{ position: "relative", width: "100%", maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--gutter-page) var(--space-16)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: mobile ? "var(--space-4)" : "var(--space-6)" }}>
+    <section style={{ position: "relative", minHeight: mobile ? "86vh" : "min(100vh, 900px)", marginTop: mobile ? -68 : -84, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", maxWidth: "var(--container-max)", margin: "0 auto", padding: mobile ? "0 var(--gutter-page) 150px" : "0 var(--gutter-page) var(--space-16)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: mobile ? "var(--space-3)" : "var(--space-6)" }}>
         {mobile ? null : <span style={{ font: "var(--type-label)", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-body)" }}>Твій унікальний простір</span>}
-        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: mobile ? "clamp(40px, 11vw, 52px)" : "clamp(56px, 13vw, 184px)", lineHeight: .95, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
-        <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "center", flexDirection: mobile ? "column" : "row", gap: mobile ? "var(--space-5)" : "var(--space-8)", flexWrap: "wrap", marginTop: "var(--space-4)" }}>
+        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: mobile ? "clamp(44px, 12vw, 56px)" : "clamp(56px, 13vw, 184px)", lineHeight: .95, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
+        {mobile ? <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--text-body)" }}>твій унікальний простір</span> : null}
+        <div style={{ display: mobile ? "inline-flex" : "flex", flexDirection: mobile ? "column" : "row", alignItems: mobile ? "center" : "center", gap: mobile ? "var(--space-4)" : "var(--space-8)", flexWrap: "wrap", marginTop: mobile ? "var(--space-5)" : "var(--space-4)" }}>
           <Button variant="primary" size={mobile ? "md" : "lg"} onClick={() => go("booking")}>Забронювати час</Button>
           {mobile
             ? <PlainLink onClick={(e) => { e.preventDefault(); go("films"); }}>Обрати фільм</PlainLink>

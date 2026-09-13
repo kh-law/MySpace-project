@@ -97,17 +97,13 @@ function Header({ route, go, scrolled, onCta }) {
   React.useEffect(() => { if (!mobile) setOpen(false); }, [mobile]);
   const link = (on) => ({ font: "var(--type-body-sm)", fontFamily: "var(--font-display)", fontSize: "14px", color: on ? "var(--white)" : "var(--text-body)", textDecoration: "none", paddingBottom: "2px", borderBottom: "1px solid " + (on ? "var(--alpha-white-40)" : "transparent"), transition: "var(--transition-control)", whiteSpace: "nowrap" });
   if (mobile) return (
-    <div style={{ position: "sticky", top: 0, zIndex: 30 }}>
-      <header style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-4)", padding: "12px var(--gutter-page)", background: scrolled ? "var(--glass-bg)" : "transparent", backdropFilter: scrolled ? "var(--blur-md)" : "none", borderBottom: "1px solid " + (scrolled ? "var(--border-hairline)" : "transparent") }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10, minWidth: 0 }}>
-          <a href="#" onClick={(e) => { e.preventDefault(); go("home"); }} style={{ display: "flex", flexDirection: "column", gap: 3, minWidth: 0, textDecoration: "none" }}>
-            <Logo variant="wordmark" height={15} assetBase={ASSETS} />
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-muted)", whiteSpace: "nowrap" }}>твій унікальний простір</span>
-          </a>
-          <Button variant="secondary" size="sm" onClick={onCta}>Забронювати</Button>
-        </div>
+    <div style={{ position: "sticky", top: 0, zIndex: 45, padding: scrolled ? "6px 10px 0" : 0, transition: "padding 240ms var(--ease-standard)" }}>
+      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)", padding: (scrolled ? "4px" : "12px") + " var(--gutter-page)", background: scrolled ? "rgba(12,12,14,.55)" : "transparent", backdropFilter: scrolled ? "var(--blur-md)" : "none", border: "1px solid " + (scrolled ? "var(--border-hairline)" : "transparent"), borderRadius: scrolled ? 18 : 0, transition: "padding 240ms var(--ease-standard), background 240ms var(--ease-standard), border-radius 240ms var(--ease-standard)" }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); go("home"); }} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Logo variant="wordmark" height={scrolled ? 11 : 13} assetBase={ASSETS} />
+        </a>
         <button type="button" onClick={() => setOpen(true)} aria-label="Меню" aria-expanded={open}
-          style={{ flex: "0 0 44px", width: 44, height: 44, marginRight: -10, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", color: "var(--white)", cursor: "pointer" }}><BurgerIcon /></button>
+          style={{ flex: "0 0 44px", width: 44, height: scrolled ? 34 : 44, marginRight: -10, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", color: "var(--white)", cursor: "pointer", transition: "height 240ms var(--ease-standard)" }}><BurgerIcon /></button>
       </header>
       <MobileMenu open={open} onClose={() => setOpen(false)} route={route} go={go} />
     </div>
@@ -312,7 +308,7 @@ function ScrollVideo() {
         <div style={{ position: "absolute", inset: 0, background: "var(--wash-protect-bottom)" }} />
       </div>
       <button type="button" onClick={toggle} disabled={!ready} aria-label={mode === "idle" ? "Подивитись зал" : "Відмотати назад"}
-        style={{ position: "fixed", left: mobile ? "var(--gutter-page)" : "auto", right: mobile ? "auto" : "var(--gutter-page)", bottom: mobile ? "var(--space-16)" : "var(--space-10)", zIndex: 20, display: "flex", alignItems: "center", gap: "var(--space-3)", height: mobile ? 44 : 52, padding: mobile ? "0 var(--space-4)" : "0 var(--space-6) 0 var(--space-5)", borderRadius: "var(--radius-pill)", border: "1px solid var(--border-default)", background: "var(--glass-bg)", backdropFilter: "var(--blur-md)", color: "var(--white)", cursor: ready ? "pointer" : "default", transition: "var(--transition-control)", opacity: veil > 0.5 ? 0 : (ready ? 1 : 0.5), pointerEvents: veil > 0.5 ? "none" : "auto" }}>
+        style={{ position: "fixed", left: mobile ? "var(--gutter-page)" : "auto", right: mobile ? "auto" : "var(--gutter-page)", bottom: mobile ? "calc(var(--space-40) + var(--space-8) + env(safe-area-inset-bottom))" : "var(--space-10)", zIndex: 20, display: "flex", alignItems: "center", gap: "var(--space-3)", height: mobile ? 44 : 52, padding: mobile ? "0 var(--space-4)" : "0 var(--space-6) 0 var(--space-5)", borderRadius: "var(--radius-pill)", border: "1px solid var(--border-default)", background: "var(--glass-bg)", backdropFilter: "var(--blur-md)", color: "var(--white)", cursor: ready ? "pointer" : "default", transition: "var(--transition-control)", opacity: veil > 0.7 ? 0 : (ready ? 1 : 0.5), pointerEvents: veil > 0.7 ? "none" : "auto" }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           {mode === "idle"
             ? <polygon points="6 3 20 12 6 21 6 3" />

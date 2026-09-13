@@ -25,7 +25,7 @@ function FilmsScreen({ go }) {
     <Section tight>
       <SectionHeading eyebrow="Колекція" title="Обери настрій, не жанр" description="Не знаєш, що дивитись — напиши нам настрій, і ми зберемо вечір за тебе." />
       <div style={{ marginTop: mobile ? "var(--space-6)" : "var(--space-10)", display: "flex", alignItems: mobile ? "stretch" : "flex-end", flexDirection: mobile ? "column" : "row", gap: mobile ? "var(--space-4)" : "var(--space-8)", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: mobile ? "nowrap" : "wrap", overflowX: mobile ? "auto" : "visible", paddingBottom: mobile ? 4 : 0, margin: mobile ? "0 calc(-1 * var(--gutter-page))" : 0, paddingInline: mobile ? "var(--gutter-page)" : 0, scrollbarWidth: "none" }}>
+        <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: mobile ? "nowrap" : "wrap", overflowX: mobile ? "auto" : "visible", width: mobile ? "calc(100% + 2 * var(--gutter-page))" : undefined, maxWidth: mobile ? "100vw" : undefined, flex: mobile ? "0 0 auto" : undefined, paddingBottom: mobile ? 4 : 0, margin: mobile ? "0 calc(-1 * var(--gutter-page))" : 0, paddingInline: mobile ? "var(--gutter-page)" : 0, scrollbarWidth: "none" }}>
           {MOODS.map((m) => <Tag key={m} selected={mood === m} onClick={() => setMood(m)}>{m}</Tag>)}
         </div>
         <div style={{ marginLeft: mobile ? 0 : "auto", display: "flex", gap: "var(--space-3)", minWidth: mobile ? 0 : 420, width: mobile ? "100%" : undefined }}>
