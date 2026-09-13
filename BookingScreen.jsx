@@ -56,7 +56,16 @@ function priceFor(hours) {
   return RATE_FIRST + (hours - 1) * RATE_NEXT;
 }
 
+function Chevron({ dir }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+      <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />
+    </svg>
+  );
+}
+
 function Calendar({ mi, setMi, sel, onPick }) {
+  const { mobile, narrow } = useBP();
   const { y, m } = MONTHS[mi];
   const first = new Date(y, m, 1);
   const offset = (first.getDay() + 6) % 7;
@@ -67,13 +76,13 @@ function Calendar({ mi, setMi, sel, onPick }) {
   for (let d = 1; d <= days; d++) cells.push(d);
 
   return (
-    <Card padding="var(--space-8)">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--space-6)" }}>
-        <IconButton label="Попередній місяць" onClick={() => setMi(Math.max(0, mi - 1))}><i data-lucide="chevron-left"></i></IconButton>
-        <span style={{ font: "var(--type-h4)", fontFamily: "var(--font-display)", color: "var(--text-display)" }}>{MONTH_TITLES[m]} {y}</span>
-        <IconButton label="Наступний місяць" onClick={() => setMi(Math.min(MONTHS.length - 1, mi + 1))}><i data-lucide="chevron-right"></i></IconButton>
+    <Card padding={mobile ? "var(--space-5)" : "var(--space-8)"}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-3)", marginBottom: "var(--space-6)" }}>
+        <IconButton size="sm" label="Попередній місяць" onClick={() => setMi(Math.max(0, mi - 1))}><Chevron dir="left" /></IconButton>
+        <span style={{ font: "var(--type-h4)", fontFamily: "var(--font-display)", fontSize: narrow ? 18 : undefined, color: "var(--text-display)", textAlign: "center", whiteSpace: "nowrap" }}>{MONTH_TITLES[m]} {y}</span>
+        <IconButton size="sm" label="Наступний місяць" onClick={() => setMi(Math.min(MONTHS.length - 1, mi + 1))}><Chevron dir="right" /></IconButton>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: "var(--space-2)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: narrow ? 4 : "var(--space-2)" }}>
         {WEEKDAYS.map((w) => <Label key={w} style={{ color: "var(--text-faint)", textAlign: "center", paddingBottom: "var(--space-2)" }}>{w}</Label>)}
         {cells.map((d, i) => {
           if (d === null) return <span key={"e" + i} />;
@@ -83,7 +92,7 @@ function Calendar({ mi, setMi, sel, onPick }) {
           const isToday = k === todayKey;
           return (
             <button key={k} type="button" disabled={past} onClick={() => onPick(y, m, d)}
-              style={{ height: 46, borderRadius: "var(--radius-sm)", border: "1px solid " + (active ? "var(--white)" : isToday ? "var(--border-strong)" : "var(--border-hairline)"), background: active ? "var(--surface-invert)" : "transparent", color: past ? "var(--text-faint)" : active ? "var(--text-on-invert)" : "var(--text-body)", font: "var(--type-body-sm)", fontFamily: "var(--font-mono)", cursor: past ? "default" : "pointer", opacity: past ? .35 : 1, transition: "var(--transition-control)" }}>{d}</button>
+              style={{ height: narrow ? 40 : 46, padding: 0, borderRadius: "var(--radius-sm)", border: "1px solid " + (active ? "var(--white)" : isToday ? "var(--border-strong)" : "var(--border-hairline)"), background: active ? "var(--surface-invert)" : "transparent", color: past ? "var(--text-faint)" : active ? "var(--text-on-invert)" : "var(--text-body)", font: "var(--type-body-sm)", fontFamily: "var(--font-mono)", fontSize: narrow ? 12 : undefined, cursor: past ? "default" : "pointer", opacity: past ? .35 : 1, transition: "var(--transition-control)" }}>{d}</button>
           );
         })}
       </div>
@@ -100,6 +109,7 @@ function Calendar({ mi, setMi, sel, onPick }) {
 }
 
 function HourGrid({ y, m, d, from, to, setRange, booked }) {
+  const { narrow } = useBP();
   const busy = new Set(booked || []);
   const hours = [];
   for (let h = OPEN_FROM; h < OPEN_TO; h++) hours.push(h);
@@ -116,7 +126,7 @@ function HourGrid({ y, m, d, from, to, setRange, booked }) {
   const inRange = (h) => from !== null && to !== null && h >= from && h < to;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--space-2)" }}>
+    <div style={{ display: "grid", gridTemplateColumns: narrow ? "repeat(3,1fr)" : "repeat(4,1fr)", gap: narrow ? 6 : "var(--space-2)" }}>
       {hours.map((h) => {
         const isBusy = busy.has(h);
         const on = inRange(h);
@@ -141,11 +151,12 @@ function Stepper({ value, onChange }) {
 }
 
 function Snacks({ popcorn, setPopcorn, drinks, setDrinks }) {
+  const { narrow } = useBP();
   const [flavour, setFlavour] = React.useState(POPCORN_FLAVOURS[0]);
   const rowStyle = { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--space-4)", paddingBottom: "var(--space-3)", borderBottom: "1px solid var(--border-hairline)" };
   const setQty = (id, q) => setPopcorn((p) => { const n = { ...p }; if (q <= 0) delete n[id]; else n[id] = q; return n; });
   return (
-    <Card padding="var(--space-8)">
+    <Card padding={narrow ? "var(--space-5)" : "var(--space-8)"}>
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
           <Label>Попкорн</Label>
@@ -186,6 +197,7 @@ function Snacks({ popcorn, setPopcorn, drinks, setDrinks }) {
 }
 
 function BookingScreen({ onBooked }) {
+  const { mobile, narrow } = useBP();
   const [mi, setMi] = React.useState(0);
   const [sel, setSel] = React.useState(key(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate()));
   const [from, setFrom] = React.useState(null);
@@ -274,12 +286,12 @@ function BookingScreen({ onBooked }) {
     <Section tight>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-12)" }}>
         <SectionHeading align="center" eyebrow="Бронювання" title="Виберіть дату та час" description="Зал відкритий з 10:00 до 24:00, мінімум — одна година. Викреслені години вже зайняті." />
-        <div style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "var(--grid-gap)", width: "100%", alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.25fr 1fr", gap: "var(--grid-gap)", width: "100%", alignItems: "start" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--grid-gap)" }}>
             <Calendar mi={mi} setMi={setMi} sel={sel} onPick={pickDay} />
-            <Card padding="var(--space-8)">
+            <Card padding={narrow ? "var(--space-5)" : "var(--space-8)"}>
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-4)" }}>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-4)", flexWrap: "wrap" }}>
                   <Label>{sd} {MONTH_NAMES[sm]} · вільні години</Label>                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)" }}>{loading ? "синхронізація…" : hh(OPEN_FROM) + "–" + hhEnd(OPEN_TO)}</span>
                 </div>
                 <HourGrid y={sy} m={sm} d={sd} from={from} to={to} setRange={setRange} booked={booked[sel]} />
@@ -288,7 +300,7 @@ function BookingScreen({ onBooked }) {
             </Card>
             <Snacks popcorn={popcorn} setPopcorn={setPopcorn} drinks={drinks} setDrinks={setDrinks} />
           </div>
-          <Card variant="raised" padding="var(--space-8)">
+          <Card variant="raised" padding={narrow ? "var(--space-5)" : "var(--space-8)"}>
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
               <Select label="Кількість гостей" value={guests} onChange={(e) => setGuests(e.target.value)}
                 options={["1", "2", "3", "4", "5", "6", "7", "8"].map((n) => ({ value: n, label: n + (n === "1" ? " особа" : Number(n) < 5 ? " особи" : " осіб") })).concat([{ value: "8+", label: "Більше вісьми" }])} />
@@ -314,7 +326,7 @@ function BookingScreen({ onBooked }) {
                 <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", paddingTop: "var(--space-3)" }}>
                   <span style={{ font: "var(--type-body)", color: "var(--text-body)" }}>До оплати</span>
                   <span style={{ display: "flex", alignItems: "baseline", gap: "var(--space-2)" }}>
-                    <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: "var(--fs-h1)", lineHeight: 1, color: "var(--white)" }}>{total || "—"}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: narrow ? 34 : "var(--fs-h1)", lineHeight: 1, color: "var(--white)" }}>{total || "—"}</span>
                     <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "var(--ls-label)", textTransform: "uppercase", color: "var(--text-faint)" }}>грн</span>
                   </span>
                 </div>
@@ -329,4 +341,4 @@ function BookingScreen({ onBooked }) {
     </Section>
   );
 }
-Object.assign(window, { BookingScreen, Calendar, HourGrid, Snacks, Stepper, priceFor, fetchBooked });
+Object.assign(window, { BookingScreen, Calendar, HourGrid, Snacks, Stepper, Chevron, priceFor, fetchBooked });

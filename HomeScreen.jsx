@@ -8,15 +8,14 @@ const AFISHA = [
 const FEATURES = ["Dolby Surround", "Якість 4K", "Можна зі своєю їжею", "До 8-ми осіб"];
 
 function Hero({ go }) {
-  const [hover, setHover] = React.useState(false);
+  const { mobile } = useBP();
   return (
-    <section style={{ position: "relative", minHeight: "min(100vh, 900px)", marginTop: -84, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
-      <div style={{ position: "relative", width: "100%", maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--gutter-page) var(--space-16)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "var(--space-6)" }}>
-        <span style={{ font: "var(--type-label)", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-body)" }}>Твій унікальний простір</span>
-        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: "clamp(64px, 13vw, 184px)", lineHeight: .92, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-8)", flexWrap: "wrap", marginTop: "var(--space-4)" }}
-          onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-          <Button variant="primary" size="lg" onClick={() => go("booking")}>Забронювати час</Button>
+    <section style={{ position: "relative", minHeight: mobile ? "88vh" : "min(100vh, 900px)", marginTop: mobile ? -108 : -84, display: "flex", alignItems: "flex-end", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--gutter-page) var(--space-16)", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: mobile ? "var(--space-4)" : "var(--space-6)" }}>
+        <span style={{ font: "var(--type-label)", fontSize: mobile ? 10 : undefined, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-body)" }}>Твій унікальний простір</span>
+        <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: "clamp(56px, 13vw, 184px)", lineHeight: .92, letterSpacing: "-0.04em", color: "var(--white)" }}>MySpace</h1>
+        <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "center", flexDirection: mobile ? "column" : "row", gap: mobile ? "var(--space-5)" : "var(--space-8)", flexWrap: "wrap", marginTop: "var(--space-4)" }}>
+          <Button variant="primary" size={mobile ? "md" : "lg"} onClick={() => go("booking")}>Забронювати час</Button>
           <ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Обрати фільм</ArrowLink>
         </div>
       </div>
@@ -25,12 +24,13 @@ function Hero({ go }) {
 }
 
 function FeatureRow() {
+  const { mobile } = useBP();
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap)" }}>
+    <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: "var(--grid-gap)" }}>
       {FEATURES.map((t) => (
-        <Card key={t} interactive padding="var(--space-6)" style={{ display: "flex" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 48, width: "100%", textAlign: "center" }}>
-            <span style={{ font: "var(--type-h4)", fontFamily: "var(--font-display)", color: "var(--text-display)", textWrap: "balance" }}>{t}</span>
+        <Card key={t} interactive padding={mobile ? "var(--space-5)" : "var(--space-6)"} style={{ display: "flex" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: mobile ? 40 : 48, width: "100%", textAlign: "center" }}>
+            <span style={{ font: "var(--type-h4)", fontFamily: "var(--font-display)", fontSize: mobile ? 17 : undefined, lineHeight: 1.2, color: "var(--text-display)", textWrap: "balance" }}>{t}</span>
           </div>
         </Card>
       ))}
@@ -39,6 +39,7 @@ function FeatureRow() {
 }
 
 function HallSection() {
+  const { mobile } = useBP();
   const items = [
     ["armchair", "Комфортний диван", "Пледи, подушки, регульоване світло."],
     ["volume-2", "Dolby Surround", "Калібрований звук, який не тисне на вуха."],
@@ -46,10 +47,10 @@ function HallSection() {
   ];
   return (
     <Section>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-16)", alignItems: "center" }}>
+      <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: mobile ? "var(--space-8)" : "var(--space-16)", alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
           <SectionHeading eyebrow="Зал" title="Один сеанс — тільки твої люди" description="Зал ваш цілком: ніхто не зайде, не зашумить і не сяде поруч." />
-          <div style={{ display: "flex", gap: "var(--space-12)" }}>
+          <div style={{ display: "flex", gap: mobile ? "var(--space-8)" : "var(--space-12)" }}>
             <Stat value="8" label="Осіб" />
             <Stat value="4K" label="Проєктор" />
             <Stat value="5.0" label="Звук" />
@@ -74,23 +75,24 @@ function HallSection() {
 }
 
 function PricesSection({ go }) {
+  const { mobile } = useBP();
   const rows = [["Перша година", "1600"], ["Кожна наступна", "900"]];
   return (
     <Section tight id="prices" style={{ paddingTop: 0 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-16)", alignItems: "center" }}>
+      <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: mobile ? "var(--space-8)" : "var(--space-16)", alignItems: "center" }}>
         <SectionHeading eyebrow="Ціни" title="Платиш за час, а не за місця" description="Можлива доплата, якщо потрібно вмістити більше вісьми осіб." />
-        <Card variant="raised" padding="var(--space-10)">
+        <Card variant="raised" padding={mobile ? "var(--space-6)" : "var(--space-10)"}>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
             {rows.map(([k, v], i) => (
-              <div key={k} style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-6)", paddingBottom: i === 0 ? "var(--space-6)" : 0, borderBottom: i === 0 ? "1px solid var(--border-hairline)" : "none" }}>
-                <span style={{ font: "var(--type-body)", color: "var(--text-body)" }}>{k}</span>
+              <div key={k} style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-4)", paddingBottom: i === 0 ? "var(--space-6)" : 0, borderBottom: i === 0 ? "1px solid var(--border-hairline)" : "none" }}>
+                <span style={{ font: "var(--type-body)", fontSize: mobile ? 14 : undefined, color: "var(--text-body)" }}>{k}</span>
                 <span style={{ display: "flex", alignItems: "baseline", gap: "var(--space-2)" }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: "var(--fs-display-2)", lineHeight: 1, color: "var(--white)" }}>{v}</span>
+                  <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-extralight)", fontSize: mobile ? 40 : "var(--fs-display-2)", lineHeight: 1, color: "var(--white)" }}>{v}</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, letterSpacing: "var(--ls-label)", textTransform: "uppercase", color: "var(--text-faint)" }}>грн</span>
                 </span>
               </div>
             ))}
-            <Button variant="primary" size="lg" fullWidth onClick={() => go("booking")}>Забронювати час</Button>
+            <Button variant="primary" size={mobile ? "md" : "lg"} fullWidth onClick={() => go("booking")}>Забронювати час</Button>
           </div>
         </Card>
       </div>
@@ -99,12 +101,14 @@ function PricesSection({ go }) {
 }
 
 function AfishaSection({ go }) {
+  const { mobile } = useBP();
   return (
     <Section tight style={{ paddingTop: 0 }}>
-      <SectionHeading eyebrow="Афіша" title="Що дивляться цього тижня" action={<ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Вся колекція</ArrowLink>} />
-      <div style={{ marginTop: "var(--space-10)", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap)" }}>
+      <SectionHeading eyebrow="Афіша" title="Що дивляться цього тижня" action={mobile ? null : <ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Вся колекція</ArrowLink>} />
+      <div style={{ marginTop: mobile ? "var(--space-6)" : "var(--space-10)", display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: "var(--grid-gap)" }}>
         {AFISHA.map((f) => <FilmCard key={f.title} film={f} onClick={() => go("booking")} />)}
       </div>
+      {mobile ? <div style={{ marginTop: "var(--space-6)" }}><ArrowLink onClick={(e) => { e.preventDefault(); go("films"); }}>Вся колекція</ArrowLink></div> : null}
     </Section>
   );
 }

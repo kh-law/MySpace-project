@@ -13,6 +13,7 @@ const CATALOGUE = [
 const MOODS = ["Всі", "Епічне", "Напруга", "Романтика", "Тепле", "Легке"];
 
 function FilmsScreen({ go }) {
+  const { mobile, narrow } = useBP();
   const [mood, setMood] = React.useState("Всі");
   const [q, setQ] = React.useState("");
   const [sort, setSort] = React.useState("Спочатку нові");
@@ -23,17 +24,17 @@ function FilmsScreen({ go }) {
   return (
     <Section tight>
       <SectionHeading eyebrow="Колекція" title="Обери настрій, не жанр" description="Не знаєш, що дивитись — напиши нам настрій, і ми зберемо вечір за тебе." />
-      <div style={{ marginTop: "var(--space-10)", display: "flex", alignItems: "flex-end", gap: "var(--space-8)", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
+      <div style={{ marginTop: mobile ? "var(--space-6)" : "var(--space-10)", display: "flex", alignItems: mobile ? "stretch" : "flex-end", flexDirection: mobile ? "column" : "row", gap: mobile ? "var(--space-4)" : "var(--space-8)", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: mobile ? "nowrap" : "wrap", overflowX: mobile ? "auto" : "visible", paddingBottom: mobile ? 4 : 0, margin: mobile ? "0 calc(-1 * var(--gutter-page))" : 0, paddingInline: mobile ? "var(--gutter-page)" : 0, scrollbarWidth: "none" }}>
           {MOODS.map((m) => <Tag key={m} selected={mood === m} onClick={() => setMood(m)}>{m}</Tag>)}
         </div>
-        <div style={{ marginLeft: "auto", display: "flex", gap: "var(--space-4)", minWidth: 420 }}>
+        <div style={{ marginLeft: mobile ? 0 : "auto", display: "flex", gap: "var(--space-3)", minWidth: mobile ? 0 : 420, width: mobile ? "100%" : undefined }}>
           <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Знайти фільм" fullWidth iconLeft={<i data-lucide="search" style={{ width: 16, height: 16 }}></i>} />
           <Select value={sort} onChange={(e) => setSort(e.target.value)} options={["Спочатку нові", "За назвою"]} />
         </div>
       </div>
-      <div style={{ margin: "var(--space-8) 0", borderTop: "1px solid var(--border-hairline)" }} />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "var(--grid-gap)" }}>
+      <div style={{ margin: (mobile ? "var(--space-6)" : "var(--space-8)") + " 0", borderTop: "1px solid var(--border-hairline)" }} />
+      <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: "var(--grid-gap)" }}>
         {list.map((f) => <FilmCard key={f.title} film={f} onClick={() => go("booking")} />)}
       </div>
       {!list.length ? <p style={{ font: "var(--type-body)", color: "var(--text-muted)" }}>Нічого не знайшли — напиши нам, підберемо вручну.</p> : null}

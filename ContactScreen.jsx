@@ -1,4 +1,5 @@
 function ContactForm({ onSent }) {
+  const { mobile, narrow } = useBP();
   const [form, setForm] = React.useState({ name: "", phone: "", social: "", note: "" });
   const [err, setErr] = React.useState(null);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -9,16 +10,16 @@ function ContactForm({ onSent }) {
     setForm({ name: "", phone: "", social: "", note: "" });
   };
   return (
-    <Card variant="raised" padding="var(--space-10)" style={{ maxWidth: 720, margin: "0 auto" }}>
+    <Card variant="raised" padding={mobile ? "var(--space-6)" : "var(--space-10)"} style={{ maxWidth: 720, margin: "0 auto", width: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
         <Input label="Ім'я" placeholder="Як до тебе звертатися" value={form.name} onChange={set("name")} />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: narrow ? "1fr" : "1fr 1fr", gap: "var(--space-4)" }}>
           <Input label="Телефон" placeholder="+38 0__ ___ __ __" value={form.phone} onChange={set("phone")} error={err} />
           <Input label="Соцмережі" placeholder="@instagram / telegram" value={form.social} onChange={set("social")} />
         </div>
         <Textarea label="Повідомлення" rows={3} placeholder="Дата, час, кількість гостей, побажання…" value={form.note} onChange={set("note")} />
         <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "center", paddingTop: "var(--space-2)" }}>
-          <Button variant="primary" size="lg" onClick={submit}>Надіслати</Button>
+          <Button variant="primary" size={mobile ? "md" : "lg"} fullWidth={narrow} onClick={submit}>Надіслати</Button>
         </div>
         <span style={{ font: "var(--type-body-sm)", fontSize: 13, color: "var(--text-faint)" }}>Надсилаючи форму, ви погоджуєтесь на обробку персональних даних.</span>
       </div>
@@ -27,6 +28,7 @@ function ContactForm({ onSent }) {
 }
 
 function ContactScreen({ onSent }) {
+  const { mobile } = useBP();
   const rows = [
     ["map-pin", "Адреса", "Київська 47, БЦ «Skyliner» · Секція С · 7-й поверх · № 704"],
     ["phone", "Зв'язок", null],
@@ -34,8 +36,8 @@ function ContactScreen({ onSent }) {
   ];
   return (
     <Section tight>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-16)", alignItems: "start" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-10)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: mobile ? "var(--space-10)" : "var(--space-16)", alignItems: "start" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: mobile ? "var(--space-7)" : "var(--space-10)" }}>
           <SectionHeading eyebrow="Контакти" title="Ми на сьомому поверсі" description="Вхід через головний лобі «Skyliner» секції С, ліфтом до 7-го поверху." />
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
             {rows.map(([ic, k, v]) => (
@@ -47,7 +49,7 @@ function ContactScreen({ onSent }) {
                   <Label style={{ color: "var(--text-faint)" }}>{k}</Label>
                   {v ? <span style={{ font: "var(--type-body)", color: "var(--text-display)" }}>{v}</span> : (
                     <span style={{ display: "flex", alignItems: "center", gap: "var(--space-4)", flexWrap: "nowrap" }}>
-                      <a href="tel:+380992889872" style={{ font: "var(--type-body)", color: "var(--text-display)", whiteSpace: "nowrap" }}>+38 099 288 98 72</a>
+                      <a href="tel:+380992889872" style={{ font: "var(--type-body)", color: "var(--text-display)", whiteSpace: "nowrap", textDecoration: "none" }}>+38 099 288 98 72</a>
                       <a href={IG_URL} target="_blank" rel="noreferrer" aria-label="Instagram myspacerv" title="Instagram myspacerv" style={{ display: "flex", color: "var(--text-body)" }}><InstagramIcon size={18} /></a>
                       <a href={TG_URL} target="_blank" rel="noreferrer" aria-label="Telegram myspacerv" title="Telegram myspacerv" style={{ display: "flex", color: "var(--text-body)" }}><TelegramIcon size={18} /></a>
                     </span>
@@ -57,7 +59,7 @@ function ContactScreen({ onSent }) {
             ))}
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-8)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: mobile ? "var(--space-5)" : "var(--space-8)" }}>
           <SectionHeading eyebrow="Зворотній зв'язок" title="Напиши нам" />
           <ContactForm onSent={onSent} />
         </div>
