@@ -263,7 +263,7 @@ function BookingScreen({ onBooked }) {
     setBooked((b) => ({ ...b, [sel]: [...new Set([...(b[sel] || []), ...all[sel]])] }));
     setRange(null, null);
     if (APPS_SCRIPT_URL) {
-      fetch(APPS_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) }).catch(() => {});
+      fetch(APPS_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
     }
     onBooked && onBooked(payload);
     if (LIQPAY_URL) {
