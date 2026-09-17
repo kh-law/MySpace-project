@@ -148,7 +148,7 @@ function Label({ children, style }) {
   return <span style={{ font: "var(--type-label)", letterSpacing: "var(--ls-label)", textTransform: "uppercase", color: "var(--text-muted)", ...style }}>{children}</span>;
 }
 
-function PosterSlot({ label, note }) {
+function PosterSlot({ label, note, src, alt }) { if (src) { return <img src={src} alt={alt || ""} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />; }
   return (
     <div style={{ position: "relative", height: "100%", background: "var(--surface-inset)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "var(--space-2)", borderBottom: "1px solid var(--border-hairline)" }}>
       <i data-lucide="image" style={{ width: 20, height: 20, color: "var(--text-faint)" }}></i>
@@ -161,7 +161,7 @@ function PosterSlot({ label, note }) {
 function FilmCard({ film, onClick }) {
   const { mobile } = useBP();
   return (
-    <Card interactive padding={mobile ? "var(--space-4)" : "var(--space-5)"} media={<PosterSlot label="Постер" />} style={{ cursor: "pointer" }}>
+    <Card interactive padding={mobile ? "var(--space-4)" : "var(--space-5)"} media={<PosterSlot label="Постер" src={film.poster} alt={film.title} />} style={{ cursor: "pointer" }}>
       <div onClick={onClick} style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
         <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-light)", fontSize: mobile ? 17 : "var(--fs-h4)", lineHeight: 1.2, color: "var(--text-display)", textWrap: "balance" }}>{film.title}</span>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", whiteSpace: "nowrap" }}>{film.year} · {(film.duration || "").replace(/(\d+)\s*год\s*(\d+)\s*хв/, "$1:$2")}</span>
