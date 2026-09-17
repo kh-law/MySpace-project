@@ -161,19 +161,20 @@ function PosterSlot({ label, note, src, alt }) { if (src) { return <img src={src
 function FilmCard({ film, onClick }) {
   const { mobile } = useBP();
   return (
-    <Card interactive padding={mobile ? "var(--space-4)" : "var(--space-5)"} media={<PosterSlot label="Постер" src={film.poster} alt={film.title} />} style={{ cursor: "pointer" }}>
-      <div onClick={onClick} style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-        <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-light)", fontSize: mobile ? 17 : "var(--fs-h4)", lineHeight: 1.2, color: "var(--text-display)", textWrap: "balance" }}>{film.title}</span>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", whiteSpace: "nowrap" }}>{film.year} · {(film.duration || "").replace(/(\d+)\s*год\s*(\d+)\s*хв/, "$1:$2")}</span>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginTop: "var(--space-2)" }}>
-          <Badge>{film.genre}</Badge>
-          {film.badge ? <Badge tone="solid">{film.badge}</Badge> : null}
+    <div onClick={onClick} style={{ cursor: "pointer" }}>
+      <Card interactive padding={mobile ? "var(--space-4)" : "var(--space-5)"} media={<PosterSlot label="Постер" src={film.poster} alt={film.title} />}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+          <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-light)", fontSize: mobile ? 17 : "var(--fs-h4)", lineHeight: 1.2, color: "var(--text-display)", textWrap: "balance" }}>{film.title}</span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", whiteSpace: "nowrap" }}>{film.year} · {(film.duration || "").replace(/(\d+)\s*год\s*(\d+)\s*хв/, "$1:$2")}</span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-2)", marginTop: "var(--space-2)" }}>
+            <Badge>{film.genre}</Badge>
+            {film.badge ? <Badge tone="solid">{film.badge}</Badge> : null}
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 }
-
 function SiteFooter({ go }) {
   const { mobile, narrow } = useBP();
   const row = { display: "flex", alignItems: "center", gap: "var(--space-3)", font: "var(--type-body)", fontSize: mobile ? 14 : undefined, color: "var(--text-body)", textDecoration: "none" };
