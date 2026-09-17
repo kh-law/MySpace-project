@@ -196,7 +196,7 @@ function Snacks({ popcorn, setPopcorn, drinks, setDrinks }) {
   );
 }
 
-function BookingScreen({ onBooked }) {
+function BookingScreen({ onBooked, presetFilm }) {
   const { mobile, narrow } = useBP();
   const [mi, setMi] = React.useState(0);
   const [sel, setSel] = React.useState(key(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate()));
@@ -221,7 +221,8 @@ function BookingScreen({ onBooked }) {
     });
     return () => { alive = false; };
   }, []);
-  const [contact, setContact] = React.useState({ name: "", phone: "", telegram: "", film: "" });
+  const [contact, setContact] = React.useState({ name: "", phone: "", telegram: "", film: presetFilm || "" });
+  React.useEffect(() => { if (presetFilm) setContact((c) => ({ ...c, film: presetFilm })); }, [presetFilm]);
   const [err, setErr] = React.useState({});
 
   const [sy, sm, sd] = sel.split("-").map(Number);
