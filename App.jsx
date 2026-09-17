@@ -2,8 +2,10 @@ function App() {
   const [route, setRoute] = React.useState("home");
   const [scrolled, setScrolled] = React.useState(false);
   const [toast, setToast] = React.useState(null);
+  const [presetFilm, setPresetFilm] = React.useState(null);
 
-  const go = (id) => {
+  const go = (id, filmTitle) => {
+    if (filmTitle !== undefined) setPresetFilm(filmTitle);
     if (id === "prices") {
       const jump = () => { const el = document.getElementById("prices"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: "smooth" }); };
       if (route === "home") jump(); else { setRoute("home"); requestAnimationFrame(() => requestAnimationFrame(jump)); }
@@ -29,7 +31,7 @@ function App() {
       <Header route={route} go={go} scrolled={scrolled || route !== "home"} onCta={() => go("booking")} />
       {route === "home" ? <HomeScreen go={go} onSent={() => setToast("Дякуємо — ми зв'яжемося з тобою найближчим часом.")} /> : null}
       {route === "films" ? <FilmsScreen go={go} /> : null}
-      {route === "booking" ? <BookingScreen onBooked={(b) => setToast("Заявка на " + b.date + ", " + b.time + " створена — переходимо до оплати " + b.total + " грн.")} /> : null}
+      {route === "booking" ? <BookingScreen presetFilm={presetFilm} onBooked={(b) => setToast("Заявка на " + b.date + ", " + b.time + " створена — переходимо до оплати " + b.total + " грн.")} /> : null}
       {route === "contact" ? <ContactScreen onSent={() => setToast("Дякуємо — ми зв'яжемося з тобою найближчим часом.")} /> : null}
       <SiteFooter go={go} />
       </div>
